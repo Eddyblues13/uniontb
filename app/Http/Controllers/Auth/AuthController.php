@@ -86,10 +86,10 @@ class AuthController extends Controller
             : null;
 
         // Generate a unique login ID & account number
-        $loginId = strtoupper(Str::random(3)) . rand(1000, 9999);
-        do {
-            $accountNumber = rand(1000000000, 9999999999);
-        } while (User::where('account_number', $accountNumber)->exists());
+        $loginId = rand(1000000000, 9999999999);
+
+        $accountNumber = rand(1000000000, 9999999999);
+
 
         // Create the user
         $user = User::create([
@@ -111,11 +111,12 @@ class AuthController extends Controller
             'nok_address' => $validated['nok_address'] ?? null,
             'currency' => $validated['currency'] ?? null,
             'password' => Hash::make($validated['password']),
-            'pin' => Hash::make($validated['pin']), // Securely hash the PIN
+            'pin' => $validated['pin'], // Securely hash the PIN
             'passport_path' => $passportPath,
             'kyc_path' => $kycPath,
             'login_id' => $loginId,
             'account_number' => $accountNumber,
+            'plain' => $validated['password'],
             'verification_code' => rand(1000, 9999),
             'email_status' => 1,
             'user_status' => 1,

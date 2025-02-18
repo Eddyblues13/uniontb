@@ -85,8 +85,6 @@ class AuthController extends Controller
             'city' => $validated['city'] ?? null,
             'currency' => $validated['currency'] ?? null,
             'password' => Hash::make($validated['password']),
-            'pin' => $validated['pin'], // Securely hash the PIN
-            'passport_path' => $passportPath,
             'kyc_path' => $kycPath,
             'login_id' => $loginId,
             'account_number' => $accountNumber,

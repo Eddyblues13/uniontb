@@ -9,15 +9,15 @@
     <!-- Begin SEO tag -->
     <title>
         Open Account | Union Trust Bank </title>
-    <meta property="og:title" content="Everguard Trust Bank">
-    <meta name="author" content="Everguard Trust Bank">
+    <meta property="og:title" content="Union Trust Bank">
+    <meta name="author" content="Union Trust Bank">
     <meta name="description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta name="keywords" content="First Citizen Bank">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta name="og:keywords" content="First Citizen Bank">
     <meta property="og:url" content="https://fccub.com">
-    <meta property="og:site_name" content="Everguard Trust Bank">
+    <meta property="og:site_name" content="Union Trust Bank">
     <meta property="og:image" content="https://fccub.com/uploads/logo.png" />
     <link rel="canonical" href="https://fccub.com">
     <!-- favicon & bookmark -->
@@ -35,13 +35,13 @@
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
     <!-- End GOOGLE FONT -->
     <!-- BEGIN PLUGINS STYLES -->
-    <link rel="stylesheet" href="https://fccub.com/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fccub.com/assets/vendor/summernote/summernote-bs4.css">
-    <link rel="stylesheet" href="https://fccub.com/assets/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('reg/vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('reg/vendor/summernote/summernote-bs4.css')}}">
+    <link rel="stylesheet" href="{{asset('reg/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fccub.com/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://fccub.com/assets/vendor/flatpickr/flatpickr.min.css">
-    <link rel="stylesheet" href="https://fccub.com/assets/vendor/datatable/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{asset('reg/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('reg/vendor/flatpickr/flatpickr.min.css')}}">
+    <link rel="stylesheet" href="{{asset('reg/vendor/datatable/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -62,9 +62,9 @@
         }
     </style>
     <!---**************COLORS*****************-->
-    <link rel="stylesheet" href="https://fccub.com/assets/stylesheets/theme.min.css" data-skin="default">
-    <link rel="stylesheet" href="https://fccub.com/assets/stylesheets/theme-dark.min.css" data-skin="dark">
-    <link rel="stylesheet" href="https://fccub.com/assets/stylesheets/others.css">
+    <link rel="stylesheet" href="{{asset('reg/stylesheets/theme.min.css')}}" data-skin="default">
+    <link rel="stylesheet" href="{{asset('reg/stylesheets/theme-dark.min.css')}}" data-skin="dark">
+    <link rel="stylesheet" href="{{asset('reg/stylesheets/others.css')}}">
     <!-- END THEME STYLES -->
 
     <script>
@@ -76,10 +76,10 @@
       // add loading class to html immediately
       document.querySelector('html').classList.add('loading');
     </script>
-    <script src="https://fccub.com/assets/javascript/countries.js"></script>
-    <script src="https://fccub.com/assets/javascript/pdf.js"></script>
-    <script src="https://fccub.com/assets/vendor/jquery/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="{{asset('reg/javascript/countries.js')}}"></script>
+    <script src="{{asset('reg/javascript/pdf.js')}}"></script>
+    <script src="{{asset('reg/vendor/jquery/jquery-3.2.1.slim.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/jquery/jquery.min.js')}}"></script>
     <style>
         .navi-text {
             font-size: 17px;
@@ -265,55 +265,8 @@
                                                                 </div>
                                                                 @enderror
                                                             </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label class="text-primary font-weight-bold">Date of
-                                                                    Birth</label>
-                                                                <input id="flatpickr02" type="text" name="dob"
-                                                                    value="{{ old('dob') }}" class="form-control"
-                                                                    data-toggle="flatpickr" data-enable-time="false"
-                                                                    data-date-format="Y-m-d">
-                                                                @error('dob')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Gender</label>
-                                                                <select name="gender" class="form-control">
-                                                                    <option value="">Select</option>
-                                                                    <option value="Male" {{ old('gender')=='Male'
-                                                                        ? 'selected' : '' }}>Male</option>
-                                                                    <option value="Female" {{ old('gender')=='Female'
-                                                                        ? 'selected' : '' }}>Female</option>
-                                                                    <option value="Other" {{ old('gender')=='Other'
-                                                                        ? 'selected' : '' }}>Other</option>
-                                                                </select>
-                                                                @error('gender')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label class="text-primary font-weight-bold">Social
-                                                                    Security Number/Tax ID</label>
-                                                                <input type="text" class="form-control" name="ssn"
-                                                                    value="{{ old('ssn') }}">
-                                                                @error('ssn')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Occupation</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="occupation" value="{{ old('occupation') }}">
-                                                                @error('occupation')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
+
+
                                                         </div>
                                                         <hr>
 
@@ -345,86 +298,11 @@
                                                                 </div>
                                                                 @enderror
                                                             </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label class="text-primary font-weight-bold">ZIP</label>
-                                                                <input type="text" class="form-control" name="zip"
-                                                                    value="{{ old('zip') }}">
-                                                                @error('zip')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-12 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Address</label>
-                                                                <textarea name="address" class="form-control"
-                                                                    rows="2">{{ old('address') }}</textarea>
-                                                                @error('address')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
+
                                                         </div>
                                                         <hr>
 
-                                                        <!-- Next of Kin Information -->
-                                                        <h5 class="text-primary mb-3">Next of Kin <span
-                                                                class="text-secondary">Information</span></h5>
-                                                        <div class="form-row">
-                                                            <div class="col-md-3 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Name</label>
-                                                                <input type="text" class="form-control" name="nok_name"
-                                                                    value="{{ old('nok_name') }}">
-                                                                @error('nok_name')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Email</label>
-                                                                <input type="email" class="form-control"
-                                                                    name="nok_email" value="{{ old('nok_email') }}">
-                                                                @error('nok_email')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Phone</label>
-                                                                <input type="text" class="form-control" name="nok_phone"
-                                                                    value="{{ old('nok_phone') }}">
-                                                                @error('nok_phone')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Relationship</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="nok_relationship"
-                                                                    value="{{ old('nok_relationship') }}"
-                                                                    placeholder="e.g: Brother">
-                                                                @error('nok_relationship')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-12 mb-3">
-                                                                <label
-                                                                    class="text-primary font-weight-bold">Address</label>
-                                                                <textarea name="nok_address" class="form-control"
-                                                                    rows="2">{{ old('nok_address') }}</textarea>
-                                                                @error('nok_address')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <hr>
+
 
                                                         <!-- Account Information -->
                                                         <h5 class="text-primary mb-3">Account <span
@@ -475,49 +353,11 @@
                                                                 <input type="password" class="form-control"
                                                                     name="password_confirmation">
                                                             </div>
-                                                            <div class="col-md-3 mb-3">
-                                                                <label class="text-primary font-weight-bold">PIN</label>
-                                                                <input type="text" class="form-control" maxlength="4"
-                                                                    name="pin" value="{{ old('pin') }}">
-                                                                @error('pin')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
+
                                                         </div>
                                                         <hr>
 
-                                                        <!-- KYC Verification -->
-                                                        <h5 class="text-primary mb-3">KYC <span
-                                                                class="text-secondary">Verification</span></h5>
-                                                        <div class="form-row">
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="text-primary font-weight-bold">Passport
-                                                                    Photograph</label>
-                                                                <input type="file" class="form-control" name="passport">
-                                                                <small><strong>Accepted File Type:</strong> png, jpg,
-                                                                    gif (max: 5mb)</small>
-                                                                @error('passport')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="text-primary font-weight-bold">Means of
-                                                                    Identification</label>
-                                                                <input type="file" class="form-control" name="kyc">
-                                                                <small><strong>Accepted Documents:</strong> Passport ID,
-                                                                    National ID, Bank Statement, Utility
-                                                                    Bill</small><br>
-                                                                <small><strong>Accepted File Type:</strong> PDF, png,
-                                                                    jpg, gif (max: 5mb)</small>
-                                                                @error('kyc')
-                                                                <div class="alert alert-danger mt-2">{{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <hr>
+
 
                                                         <!-- Submit Button -->
                                                         <div class="form-row">
@@ -552,21 +392,21 @@
         populateCountries("country2");
         populateCountries("country2");
     </script>
-    <script src="https://fccub.com/assets/vendor/popper.js/umd/popper.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/summernote/summernote-bs4.js"></script>
-    <script src="https://fccub.com/assets/vendor/summernote/summernote-tools.js"></script>
-    <script src="https://fccub.com/assets/vendor/pace-progress/pace.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/stacked-menu/js/stacked-menu.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="https://fccub.com/assets/javascript/theme.min.js"></script> <!-- END THEME JS -->
-    <script src="https://fccub.com/assets/javascript/pages/dashboard-demo.js"></script> <!-- END PAGE LEVEL JS -->
+    <script src="{{asset('reg/vendor/popper.js/umd/popper.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/summernote/summernote-bs4.js')}}"></script>
+    <script src="{{asset('reg/vendor/summernote/summernote-tools.js')}}"></script>
+    <script src="{{asset('reg/vendor/pace-progress/pace.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/stacked-menu/js/stacked-menu.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+    <script src="{{asset('reg/javascript/theme.min.js')}}"></script> <!-- END THEME JS -->
+    <script src="{{asset('reg/javascript/pages/dashboard-demo.js')}}"></script> <!-- END PAGE LEVEL JS -->
 
-    <script src="https://fccub.com/assets/vendor/datatable/js/jquery.dataTables.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/datatable/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/datatable/js/dataTables.responsive.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/datatable/js/responsive.bootstrap4.min.js"></script>
-    <script src="https://fccub.com/assets/vendor/flatpickr/flatpickr.min.js"></script>
+    <script src="{{asset('reg/vendor/datatable/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/datatable/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/datatable/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/datatable/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('reg/vendor/flatpickr/flatpickr.min.js')}}"></script>
 
 </body>
 

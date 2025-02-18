@@ -55,25 +55,11 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|string|max:20',
-            'dob' => 'nullable|date',
-            'gender' => 'nullable|string|max:10',
-            'ssn' => 'nullable|string|max:50',
             'occupation' => 'nullable|string|max:100',
             'country' => 'nullable|string|max:100',
             'city' => 'nullable|string|max:100',
-            'zip' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'nok_name' => 'nullable|string|max:255',
-            'nok_email' => 'nullable|email',
-            'nok_phone' => 'nullable|string|max:20',
-            'nok_relationship' => 'nullable|string|max:100',
-            'nok_address' => 'nullable|string|max:255',
             'currency' => 'nullable|string|max:10',
             'password' => 'required|string|min:4|confirmed',
-            'pin' => 'required|numeric|digits_between:4,4',
-            'passport' => 'nullable|file|mimes:png,jpg,gif|max:5120',
-            'kyc' => 'nullable|file|mimes:pdf,png,jpg,gif|max:5120',
         ]);
 
         // Handle file uploads with unique naming

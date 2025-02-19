@@ -63,24 +63,16 @@
                                                 <a class="dropdown-item" href="">Login Activity</a>
                                                 <a href="#" data-toggle="modal" data-target="#resetpswdModal"
                                                     class="dropdown-item">Reset Password</a>
-                                                <a href="#" data-toggle="modal" data-target="#clearacctModal"
-                                                    class="dropdown-item">Clear Account</a>
+                                                {{-- <a href="#" data-toggle="modal" data-target="#clearacctModal"
+                                                    class="dropdown-item">Clear Account</a> --}}
 
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#accountSuspension">Account Suspension</a>
-
-                                                <a href="#" data-toggle="modal" data-target="#accountverificationModal"
-                                                    class="dropdown-item">Account Verification</a>
-
-                                                <a href="#" data-toggle="modal" data-target="#edituser"
-                                                    class="dropdown-item">Edit</a>
                                                 <a href="#" data-toggle="modal" data-target="#sendmailtooneuserModal"
                                                     class="dropdown-item">Send Email</a>
                                                 <a href="#" data-toggle="modal" data-target="#switchuserModal"
                                                     class="dropdown-item text-success">Gain Access</a>
                                                 <a href="#" data-toggle="modal" data-target="#deleteModal"
-                                                    class="dropdown-item text-danger">Delete {{$user->first_name}}
-                                                    {{$user->last_name}}</a>
+                                                    class="dropdown-item text-danger">Delete {{$user->name}}
+                                                </a>
 
                                             </div>
                                         </div>
@@ -90,11 +82,12 @@
                             <div class="p-3 mt-4 border rounded row text-dark">
                                 <div class="col-md-3">
                                     <h5 class="text-bold">Savings Balance</h5>
-                                    <p>${{number_format($savings_balance, 2, '.', ',')}}</p>
+                                    <p>{{ $user->currency }} {{number_format($savings_balance, 2, '.', ',')}}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="text-bold">Checking Balance</h5>
-                                    <p>${{number_format($checking_balance, 2, '.', ',')}}</p>
+                                    <p>{{ $user->currency }} {{number_format($checking_balance, 2, '.', ',')}}
+                                    </p>
                                 </div>
                                 <div class="col-md-3">
                                     <h5>User Account Status</h5>

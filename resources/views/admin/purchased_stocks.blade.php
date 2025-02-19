@@ -39,7 +39,7 @@
                   <tr>
                     <td>{{$stock->name}}</td>
                     <td>{{$stock->stock_name}}</td>
-                    <td>${{number_format($stock->amount, 2, '.', ',')}}</td>
+                    <td>{{ Auth::user()->currency }} {{number_format($stock->amount, 2, '.', ',')}}</td>
                     <td>
                       @if($stock->status==='1')
                       <span class="badge badge-danger">expired</span>

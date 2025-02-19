@@ -43,7 +43,8 @@
 										<th scope="row">{{$dep->id}}</th>
 										<td>{{$dep->name}}</td>
 										<td>{{$dep->email}}</td>
-										<td>${{number_format($dep->amount, 2, '.', ',')}}</td>
+										<td>{{number_format($dep->amount, 2, '.', ',')}}
+										</td>
 										<td>{{$dep->asset}}</td>
 
 										<td>

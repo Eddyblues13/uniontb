@@ -7,7 +7,7 @@
 			<div class="alert alert-success mb-2">{{ session('message') }}</div>
 			@endif
 			<div class="mt-2 mb-4">
-				<h1 class="title1 text-dark">Union Trust Ban Account Verification List</h1>
+				<h1 class="title1 text-dark">EGTB Account Verification List</h1>
 			</div>
 
 			<div class="mb-5 row">

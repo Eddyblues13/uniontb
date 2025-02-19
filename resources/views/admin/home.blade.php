@@ -6,7 +6,7 @@
             <div class="alert alert-success mb-2">{{session('message')}}</div>
             @endif
             <div class="mt-2 mb-4">
-                <h1 class="title1 text-dark">Union Trust BanK users lists</h1>
+                <h1 class="title1 text-dark">EGTB users lists</h1>
             </div>
 
             <div>
@@ -17,7 +17,7 @@
                 <div class="col-12">
                     <a href="#" data-toggle="modal" data-target="#sendmailModal" class="btn btn-primary btn-lg"
                         style="margin:10px;">Message all</a>
-                    <a href="{{route('admin.kyc.index')}}" class="btn btn-warning btn-lg">KYC</a>
+                    <a href="" class="btn btn-warning btn-lg">KYC</a>
 
                     <a href="{{route('add.user')}}" data-toggle="modal" data-target="#adduser"
                         class="float-right btn btn-primary"> <i class='fas fa-plus-circle'></i> Open an Account</a>
@@ -294,7 +294,7 @@
                     <button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body bg-light">
-                    <form method="post" action="{{route('send.mail.all')}}">
+                    <form method="post" action="">
                         @csrf
                         <div class=" form-group">
                             <input type="text" name="subject" class="form-control bg-light text-dark"

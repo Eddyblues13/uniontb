@@ -47,7 +47,8 @@
                                     <td>{{ $transaction->transaction_ref }}</td>
                                     <td>{{ $transaction->transaction_type }}</td>
 
-                                    <td>${{ number_format($transaction->transaction_amount, 2, '.', ',') }}</td>
+                                    <td>{{ Auth::user()->currency }} {{ number_format($transaction->transaction_amount,
+                                        2, '.', ',') }}</td>
 
                                     <td>
                                         @if($transaction->transaction_status == 0)

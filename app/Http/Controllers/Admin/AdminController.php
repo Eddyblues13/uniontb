@@ -8,6 +8,7 @@ use App\Models\Trade;
 use App\Models\Profit;
 use App\Models\Deposit;
 use App\Mail\DebitEmail;
+use App\Models\Activity;
 use App\Models\Document;
 use App\Models\Earnings;
 use App\Models\Referral;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 
 class AdminController extends Controller
@@ -91,44 +93,10 @@ class AdminController extends Controller
     }
 
     // Method to approve a transaction
-    public function approveTransaction($id)
-    {
-        // Fetch the transaction by ID
-        $transaction = Transaction::findOrFail($id);
-
-        // Check if the transaction is already approved
-        if ($transaction->transaction_status == 1) {
-            return redirect()->back()->with('info', 'Transaction is already approved.');
-        }
-
-        // Approve the transaction by setting the status to 1 (Processed)
-        $transaction->transaction_status = 1;
-        $transaction->save();
-
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Transaction approved successfully.');
-    }
 
 
 
 
-    public function manageWithdrawalsPage()
-    {
-
-        $data['withdrawals'] = User::join('withdrawals', 'users.id', '=', 'withdrawals.user_id')
-            ->get(['users.email', 'users.first_name', 'users.last_name', 'withdrawals.*']);
-
-        return view('admin.manage_withdrawal', $data);
-    }
-
-
-    public function viewDeposit($id)
-    {
-
-        $data['proof']  = Deposit::findOrFail($id);
-
-        return view('admin.proof', $data);
-    }
 
 
 
@@ -673,7 +641,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function impersonate(User $user)
+    public function impersonate(Request $request, User $user)
     {
         // Store the original user's ID in the session (if not already stored)
         if (!session()->has('impersonate')) {
@@ -683,38 +651,51 @@ class AdminController extends Controller
         // Impersonate the specified user
         Auth::loginUsingId($user->id);
 
-        $data['credit_withdrawal'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Withdrawal')->where('transaction', 'credit')->sum('credit');
-        $data['debit_withdrawal'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Withdrawal')->where('transaction', 'debit')->sum('debit');
-        $data['withdrawal_balance'] = $data['debit_withdrawal'];
+        $data['savings_balance'] = SavingsBalance::where('user_id', $user->id)->sum('amount');
+        $data['checking_balance'] = CheckingBalance::where('user_id', $user->id)->sum('amount');
 
-        $data['credit_deposit'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Deposit')->where('transaction', 'credit')->sum('credit');
-        $data['debit_deposit'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Deposit')->where('transaction', 'debit')->sum('debit');
-        $data['deposit_balance'] = $data['credit_deposit'] - $data['debit_deposit'];
+        $data['currentMonth'] = Carbon::now()->format('M Y'); // Example: "Feb 2025"
 
-        $data['credit_profit'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Profit')->where('transaction', 'credit')->sum('credit');
-        $data['debit_profit'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Profit')->where('transaction', 'debit')->sum('debit');
-        $data['profit_balance'] = $data['credit_profit'] - $data['debit_profit'];
+        $data['totalSavingsCredit'] = SavingsBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'credit')
+            ->sum('amount');
 
-        $data['credit_earning'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Earning')->where('transaction', 'credit')->sum('credit');
-        $data['debit_earning'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Earning')->where('transaction', 'debit')->sum('debit');
-        $data['earning_balance'] = $data['credit_earning'] - $data['debit_earning'];
-
+        $data['totalSavingsDebit'] = SavingsBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'debit')
+            ->sum('amount');
 
 
 
 
-        $data['credit_Investment'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Investment')->where('transaction', 'credit')->sum('credit');
-        $data['debit_Investment'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Investment')->where('transaction', 'debit')->sum('debit');
-        $data['Investment_balance'] = $data['credit_Investment'] - $data['debit_Investment'];
-
-        $data['credit_referral'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Referral')->where('transaction', 'credit')->sum('credit');
-        $data['debit_referral'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction_type', 'Referral')->where('transaction', 'debit')->sum('debit');
-        $data['referral_balance'] = $data['credit_referral'] - $data['debit_referral'];
+        $data['totalCheckingCredit'] = CheckingBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'credit')
+            ->sum('amount');
 
 
-        $data['credit_balance'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction', 'credit')->sum('credit');
-        $data['debit_balance'] = Transaction::where('user_id', $user->id)->where('status', '1')->where('transaction', 'debit')->sum('debit');
-        $data['total_balance'] = $data['credit_balance'] - $data['debit_balance'];
+
+        $data['totalCheckingDebit'] = CheckingBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'debit')
+            ->sum('amount');
+        $data['activity'] = Activity::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->skip(1)->take(1)->first();
+        $data['clientIpAddress'] = $request->getClientIp();
+        $data['userIp'] = $request->ip();
+        $data['location'] = Location::get($data['userIp']);
+
+        // Use the Location facade to get the user's location
+        $location = Location::get($data['userIp']);
+
+        // Determine the flag URL
+        $data['flagUrl'] = '';
+        if ($location && $location->countryCode) {
+            $data['flagUrl'] = "https://flagcdn.com/24x18/" . strtolower($location->countryCode) . ".png";
+        }
+
+
+
 
 
         // Redirect to the user's home page with the relevant data
@@ -738,25 +719,6 @@ class AdminController extends Controller
             $data['users'] = User::get();
 
 
-            // Sum of pending deposits
-            $data['pending_deposits_sum'] = Deposit::where('status', '0')->sum('amount');
-
-            // Sum of successful deposits
-            $data['total_deposits'] = Deposit::sum('amount');
-
-            // Sum of pending withdrawals
-            $data['pending_withdrawals_sum'] = Withdrawal::where('status', '0')->sum('amount');
-
-            // Sum of successful withdrawals
-            $data['total_withdrawals'] = Withdrawal::sum('amount');
-
-            // sum total users
-            $data['total_users'] = User::count();
-
-            // sum total users
-            // $data['suspended_users'] = User::where('account_suspended', '1')->count();
-
-            $data['suspended_users'] = User::count();
             // Redirect to the original user's dashboard or home page
             return redirect()->route('admin.home', $data)->with('message', 'You have returned to your original account.');
         }
@@ -794,151 +756,9 @@ class AdminController extends Controller
     }
 
 
-    public function credit(Request $request)
-    {
-        // Validate the incoming request data
-        $request->validate([
-            'user_id' => 'required|integer',
-            'amount' => 'required|numeric',
-            'type' => 'required|string',
-            'description' => 'nullable|string',
-            't_type' => 'required|string'
-        ]);
-
-        // Generate a unique transaction ID and reference
-        $transactionId = strtoupper(uniqid('TXN_'));
-        $transactionRef = strtoupper(uniqid('REF_'));
-
-        // Create the transaction record
-        $transaction = Transaction::create([
-            'user_id' => $request->user_id,
-            'transaction_id' => $transactionId,
-            'transaction_ref' => $transactionRef,
-            'transaction_type' => 'Credit', // From "Transfer Scope" dropdown
-            'transaction' => 'credit', // Since this is a credit transaction
-            'transaction_amount' => $request->merge([
-                'amount' => str_replace(',', '', $request->input('amount'))
-            ]), // Amount to be credited
-            'transaction_description' => $request->description, // Optional description
-            'transaction_status' => '1', // Default status can be 'pending', adjust as needed
-            'wallet_address' => null, // If wallet transfers are applicable, you can fill this
-            'wallet_type' => null, // Can be filled if relevant to your setup
-            'account_name' => null, // If related to bank transfers
-            'account_number' => null, // If related to bank transfers
-            'account_type' => null, // If related to bank transfers
-            'bank_name' => null, // If related to bank transfers
-            'routing_number' => null, // If related to bank transfers
-        ]);
 
 
 
-        $full_name = $request['name'];
-        $email =  $request['email'];
-        $amount = $request->input('amount');
-        $date = Carbon::now();
-        $balance =  $request['balance'] + $request['amount'];
-        $description =  $request['description'];
-        $a_number =  $request['a_number'];
-        $currency =  $request['currency'];
-
-        $data = [
-
-            'account_number' => $a_number,
-            'account_name' => $full_name,
-            'full_name' => $full_name,
-            'description' => $description,
-            'amount' => $amount,
-            'date' => $date,
-            'balance' => $balance,
-            'currency' => $currency,
-            'ref' => $transactionRef,
-        ];
-
-
-
-        // Optional: Send email notification if requested
-        if ($request->t_type == 'yes') {
-            $user = User::findOrFail($request->user_id);
-            // Send email notification (assuming a mailable is set up)
-            Mail::to($email)->send(new CreditEmail($data));
-        }
-
-        // Redirect or return response after successful credit
-        return redirect()->back()->with('message', 'Transaction created successfully and credit applied.');
-    }
-
-    public function debit(Request $request)
-    {
-        // Validate the incoming request data
-        $request->validate([
-            'user_id' => 'required|integer',
-            'amount' => 'required|numeric',
-            'type' => 'required|string',
-            'description' => 'nullable|string',
-            't_type' => 'required|string'
-        ]);
-
-        // Generate a unique transaction ID and reference
-        $transactionId = strtoupper(uniqid('TXN_'));
-        $transactionRef = strtoupper(uniqid('REF_'));
-
-        // Create the transaction record
-        $transaction = Transaction::create([
-            'user_id' => $request->user_id,
-            'transaction_id' => $transactionId,
-            'transaction_ref' => $transactionRef,
-            'transaction_type' => 'Debit', // From "Transfer Scope" dropdown
-            'transaction' => 'debit', // Since this is a credit transaction
-            'transaction_amount' => $request->merge([
-                'amount' => str_replace(',', '', $request->input('amount'))
-            ]), // Amount to be credited
-            'transaction_description' => $request->description, // Optional description
-            'transaction_status' => '1', // Default status can be 'pending', adjust as needed
-            'wallet_address' => null, // If wallet transfers are applicable, you can fill this
-            'wallet_type' => null, // Can be filled if relevant to your setup
-            'account_name' => null, // If related to bank transfers
-            'account_number' => null, // If related to bank transfers
-            'account_type' => null, // If related to bank transfers
-            'bank_name' => null, // If related to bank transfers
-            'routing_number' => null, // If related to bank transfers
-        ]);
-
-
-
-        $full_name = $request['name'];
-        $email =  $request['email'];
-        $amount = $request->input('amount');
-        $date = Carbon::now();
-        $balance =  $request['balance'] - $request['amount'];
-        $description =  $request['description'];
-        $a_number =  $request['a_number'];
-        $currency =  $request['currency'];
-
-        $data = [
-
-            'account_number' => $a_number,
-            'account_name' => $full_name,
-            'full_name' => $full_name,
-            'description' => $description,
-            'amount' => $amount,
-            'date' => $date,
-            'balance' => $balance,
-            'currency' => $currency,
-            'ref' => $transactionRef,
-        ];
-
-
-
-        // Optional: Send email notification if requested
-        if ($request->t_type == 'yes') {
-            $user = User::findOrFail($request->user_id);
-            // Send email notification (assuming a mailable is set up)
-            Mail::to($email)->send(new DebitEmail($data));
-        }
-
-        // Redirect or return response after successful credit
-        return redirect()->back()->with('message', 'Transaction created successfully and debit applied.');
-    }
 
     public function vatCode(Request $request)
     {

@@ -168,7 +168,8 @@
             </script>
             <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
         </div>
-        <div class="pageTitle"> <a href="user"><img src="uploads/logo.png" alt="logo" class="logo"></a>
+        <div class="pageTitle"> <a href="{{route('home')}}"><img src="{{asset('uploads/logo.png')}}" alt="logo"
+                    class="logo"></a>
         </div>
         <div class="right">
             <a href="#" class="headerButton" data-bs-toggle="modal" data-bs-target="#ProfileModal"> <img

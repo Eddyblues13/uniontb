@@ -134,7 +134,8 @@ Route::prefix('user')->middleware('user')->group(function () {
         ->name('transfer.form')
         ->where('type', 'wire|local|internal|paypal|crypto|skrill');
     Route::post('/process', [App\Http\Controllers\User\TransferController::class, 'processTransfer'])->name('transfer.process');
-    Route::post('/home', [App\Http\Controllers\User\TransferController::class, 'confirmTax'])->name('transfer.confirmTax');
+    // Route::post('/home', [App\Http\Controllers\User\TransferController::class, 'confirmTax'])->name('transfer.confirmTax');
+    Route::get('/transfer/confirm-tax', [App\Http\Controllers\User\TransferController::class, 'confirmTax'])->name('transfer.confirmTax');
 
     Route::get('/card-deposit', [App\Http\Controllers\User\CardDepositController::class, 'create'])->name('user.card.deposit.create');
     Route::post('/deposit', [App\Http\Controllers\User\CardDepositController::class, 'store'])->name('user.card.deposit.store');

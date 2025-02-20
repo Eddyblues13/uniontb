@@ -119,9 +119,12 @@
                                 @csrf
                             </form>
 
-                            <a href="" onclick="document.getElementById('logout-form').submit();"
-                                class="btn btn-danger btn-block"><i class="fas fa-sign-out-alt"></i> &nbsp;Sign
-                                Out</a>
+                            <a href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="btn btn-danger btn-block">
+                                <i class="fas fa-sign-out-alt"></i> &nbsp;Sign Out
+                            </a>
+
                         </div>
                     </div>
                 </div>

@@ -165,14 +165,15 @@
                                             <a class="dropdown-item" href="#">Account Settings</a>
                                             <a class="dropdown-item" href="#">Change Password</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{route('logout')}}">
+                                            <a class="dropdown-item" href="#"
+                                                onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                                                 Logout
                                             </a>
-                                            <form id="logoutform" action="{{route('logout')}}" method="POST"
+                                            <form id="logoutform" action="{{ route('user.logout') }}" method="POST"
                                                 style="display: none;">
-                                                <input type="hidden" name="_token"
-                                                    value="XJqa5hhY3cHbkWs5f3RwEgAuiPZvVNy9oH1FuvnJ">
+                                                @csrf
                                             </form>
+
                                         </li>
                                     </div>
                                 </ul>

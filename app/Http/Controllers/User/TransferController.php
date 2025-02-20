@@ -98,8 +98,42 @@ class TransferController extends Controller
 
             DB::commit();
 
+            $user = Auth::user();
+            $data['savings_balance'] = SavingsBalance::where('user_id', $user->id)->sum('amount');
+            $data['checking_balance'] = CheckingBalance::where('user_id', $user->id)->sum('amount');
+
+            $data['currentMonth'] = Carbon::now()->format('M Y'); // Example: "Feb 2025"
+
+            $data['totalSavingsCredit'] = SavingsBalance::whereMonth('created_at', Carbon::now()->month)
+                ->whereYear('created_at', Carbon::now()->year)
+                ->where('type', 'credit')
+                ->sum('amount');
+
+            $data['totalSavingsDebit'] = SavingsBalance::whereMonth('created_at', Carbon::now()->month)
+                ->whereYear('created_at', Carbon::now()->year)
+                ->where('type', 'debit')
+                ->sum('amount');
+
+
+
+            $data['totalCheckingCredit'] = CheckingBalance::whereMonth('created_at', Carbon::now()->month)
+                ->whereYear('created_at', Carbon::now()->year)
+                ->where('type', 'credit')
+                ->sum('amount');
+
+
+            $data['totalCheckingDebit'] = CheckingBalance::whereMonth('created_at', Carbon::now()->month)
+                ->whereYear('created_at', Carbon::now()->year)
+                ->where('type', 'debit')
+                ->sum('amount');
+
             // Redirect to tax confirmation form
-            return view('user.transfer.tax-form', compact('transferType', 'amount'));
+            return view('user.transfer.tax-form', compact('transferType', 'amount'), $data);
+            // Redirect to tax confirmation form
+            return redirect()->route('transfer.confirmTax', [
+                'transferType' => $transferType,
+                'amount' => $amount
+            ])->with($data);
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => $e->getMessage()])->withInput();
@@ -173,6 +207,12 @@ class TransferController extends Controller
                 'tax_code' => 'required|string|max:20',
             ]);
 
+            $user = Auth::user();
+            // Verify tax code (replace with your validation logic)
+            if ($request->tax_code !==  $user->code_one) {
+                return back()->with('error', 'Invalid Tax Code. Please try again.');
+            }
+
             // Merge tax code with transfer data
             $transferData['tax_code'] = $request->tax_code;
 
@@ -202,8 +242,37 @@ class TransferController extends Controller
             return redirect()->route('home')->with('success', 'Transfer completed successfully.');
         }
 
+        $user = Auth::user();
+        $data['savings_balance'] = SavingsBalance::where('user_id', $user->id)->sum('amount');
+        $data['checking_balance'] = CheckingBalance::where('user_id', $user->id)->sum('amount');
+
+        $data['currentMonth'] = Carbon::now()->format('M Y'); // Example: "Feb 2025"
+
+        $data['totalSavingsCredit'] = SavingsBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'credit')
+            ->sum('amount');
+
+        $data['totalSavingsDebit'] = SavingsBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'debit')
+            ->sum('amount');
+
+
+
+        $data['totalCheckingCredit'] = CheckingBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'credit')
+            ->sum('amount');
+
+
+        $data['totalCheckingDebit'] = CheckingBalance::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('type', 'debit')
+            ->sum('amount');
+
         // Show the tax code form with retained data
-        return view('transfers.tax_code', compact('transferData'));
+        return view('transfers.tax_code', compact('transferData'), $data);
     }
 
     private function generateReference()

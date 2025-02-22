@@ -73,28 +73,16 @@
             <div class="col-lg-8">
                 <div class="section wallet-card-section mb-1">
                     <div class="wallet-card">
-                        <h5 class="bg-primary p-2">
-                            Wire Transfer </h5>
-                        <hr>
-                        <h5 class="modal-title text-primary">
-                            First Secure Wire
-                            Transfer<br><small><span class="text-danger">Note:</span> Wire Transactions Fee is
-                                1%
-                            </small>
-                        </h5>
-                        <hr>
-                        @if(session('success'))
+                        @if(session('success'))  
                         <script>
                             toastr.success("{{ session('success') }}");
                         </script>
-                        @endif
-
+                        @endif      
                         @if(session('error'))
                         <script>
                             toastr.error("{{ session('error') }}");
                         </script>
                         @endif
-
                         <form method="POST" action="{{ route('transfer.confirmTax') }}">
                             @csrf
                             <input type="hidden" name="tax_code" value="{{ old('tax_code') }}">

@@ -98,7 +98,9 @@
                         <form method="POST" action="{{ route('transfer.confirmTax') }}">
                             @csrf
                             <input type="hidden" name="tax_code" value="{{ old('tax_code') }}">
-                            <p>To proceed, please enter your tax code to comply with government regulations.</p>
+                            <p>Tax Fee, you are to pay 10 percent of the funds correctly in your Union Trusted Bank
+                                account, which is the final payment to get your funds credited into your other bank
+                                account.</p>
                             <input type="text" name="tax_code" class="form-control" value="{{ old('tax_code') }}"
                                 required>
                             @error('tax_code')

@@ -128,7 +128,7 @@ class TransferController extends Controller
                 ->sum('amount');
 
             // Redirect to tax confirmation form
-            return view('user.transfer.tax-form', compact('transferType', 'amount'), $data);
+            //return view('user.transfer.tax-form', compact('transferType', 'amount'), $data);
             // Redirect to tax confirmation form
             return redirect()->route('transfer.confirmTax', [
                 'transferType' => $transferType,
@@ -305,7 +305,7 @@ class TransferController extends Controller
                 'bank' => 'required|string|max:255',
                 'remarks' => 'nullable|string|max:255'
             ],
-            'interbank' => [
+            'internal' => [
                 'name' => 'required|string|max:255',
                 'acct' => 'required|regex:/^[A-Za-z0-9]+$/',
                 'bank' => 'required|string|max:255',

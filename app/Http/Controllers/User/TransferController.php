@@ -140,68 +140,15 @@ class TransferController extends Controller
         }
     }
 
-    public function confirmTa(Request $request)
-    {
-        $transferData = Session::get('transfer_data');
 
-        if (!$transferData) {
-            return redirect()->route('home')->withErrors(['error' => 'Transfer data not found. Please start again.']);
-        }
-
-        $request->validate(['tax_code' => 'required|string|max:20']);
-        $user = Auth::user();
-
-        DB::beginTransaction();
-        try {
-            $account = $transferData['validated']['account'];
-            $amount = $transferData['validated']['amount'];
-
-            // Deduct from account
-            if ($account === 'savings') {
-                SavingsBalance::where('user_id', $user->id)->decrement('amount', $amount);
-            } else {
-                CheckingBalance::where('user_id', $user->id)->decrement('amount', $amount);
-            }
-
-            // Create transfer history
-            $transfer = TransferHistory::create([
-                'reference' => $this->generateReference(),
-                'user_id' => $user->id,
-                'type' => $transferData['type'],
-                'amount' => $amount,
-                'currency' => 'USD',
-                'from_account' => $account,
-                'details' => json_encode(array_merge($transferData['details'], ['tax_code' => $request->tax_code])),
-                'status' => 'completed'
-            ]);
-
-            DB::commit();
-            Session::forget('transfer_data');
-
-            return redirect()->route('transfer.success')
-                ->with('success', 'Transfer completed successfully!')
-                ->with('reference', $transfer->reference);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => $e->getMessage()])->withInput();
-        }
-    }
     public function confirmTax(Request $request)
     {
-        // Retrieve stored data from session
         $transferData = session('transfer_data');
 
-        // Check if transfer data exists, otherwise redirect back
         if (!$transferData) {
-            return redirect()->route('transfer.process')->with('error', 'Session expired, please start over.');
+            return redirect()->route('home')->with('error', 'Session expired, please start over.');
         }
 
-        // Extract necessary variables
-        $user = Auth::user();
-        $account = $transferData['validated']['account'];
-        $amount = $transferData['validated']['amount'];
-
-        // If this is a POST request, validate and finalize the transfer
         if ($request->isMethod('post')) {
             $request->validate([
                 'tax_code' => 'required|string|max:20',
@@ -215,6 +162,10 @@ class TransferController extends Controller
 
             // Merge tax code with transfer data
             $transferData['tax_code'] = $request->tax_code;
+            // Extract user and account details
+            $user = Auth::user();
+            $account = $transferData['validated']['account'];
+            $amount = $transferData['validated']['amount'];
 
             // Deduct amount from selected account
             if ($account === 'savings') {
@@ -229,15 +180,16 @@ class TransferController extends Controller
                 'user_id' => $user->id,
                 'type' => $transferData['type'],
                 'amount' => $amount,
-                'currency' => 'USD',
+                'currency' => $user->currency,
                 'from_account' => $account,
                 'details' => json_encode(array_merge($transferData['details'], ['tax_code' => $request->tax_code])),
                 'status' => 'completed'
             ]);
 
-
-            // Clear session data
             session()->forget('transfer_data');
+            // Redirect to receipt route
+            // return redirect()->route('transfer.receipt')->with('transferData', $transferData);
+
 
             return redirect()->route('home')->with('success', 'Transfer completed successfully.');
         }
@@ -272,7 +224,7 @@ class TransferController extends Controller
             ->sum('amount');
 
         // Show the tax code form with retained data
-        return view('transfers.tax_code', compact('transferData'), $data);
+        return view('user.transfer.tax-form', compact('transferData'), $data);
     }
 
     private function generateReference()

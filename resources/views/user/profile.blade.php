@@ -172,6 +172,14 @@
                     </div>
                     <div class="form-group basic">
                         <div class="input-wrapper">
+                            <label class="label" for="account_number">Account Number</label>
+                            <input type="text" class="form-control" name="account_number"
+                                value="{{ Auth::user()->account_number }}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
                             <label class="label" for="country">Country</label>
                             <select name="country" class="form-control" id="country" required>
                                 <option value="{{ Auth::user()->country }}">{{ Auth::user()->country ?? '-1' }}</option>

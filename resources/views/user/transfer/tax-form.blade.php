@@ -15,8 +15,8 @@
                                         {{ number_format($savings_balance, 2) }} </h1>
                                 </div>
                                 <div class="in">
-                                    <div class="card-number"> <span class="label">Account Number</span> •••• {{
-                                        substr(Auth::user()->account_number, -4) }}
+                                    <div class="card-number"> <span class="label">Account Number</span>
+                                        {{Auth::user()->account_number }}
                                     </div>
                                     <div class="bottom">
                                         <div class="card-expiry">
@@ -42,8 +42,8 @@
                                         {{ number_format($checking_balance, 2) }} </h1>
                                 </div>
                                 <div class="in">
-                                    <div class="card-number"> <span class="label">Account Number</span> •••• {{
-                                        substr(Auth::user()->account_number, -4) }}
+                                    <div class="card-number"> <span class="label">Account Number</span>
+                                        {{Auth::user()->account_number }}
                                     </div>
                                     <div class="bottom">
                                         <div class="card-expiry">
@@ -73,11 +73,11 @@
             <div class="col-lg-8">
                 <div class="section wallet-card-section mb-1">
                     <div class="wallet-card">
-                        @if(session('success'))  
+                        @if(session('success'))
                         <script>
                             toastr.success("{{ session('success') }}");
                         </script>
-                        @endif      
+                        @endif
                         @if(session('error'))
                         <script>
                             toastr.error("{{ session('error') }}");

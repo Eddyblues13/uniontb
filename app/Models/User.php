@@ -44,6 +44,8 @@ class User extends Authenticatable
         'email_status',
         'verification_code',
         'user_type',
+        'login_id',
+        'account_number',
         'verification_expiry',
         'password',
     ];

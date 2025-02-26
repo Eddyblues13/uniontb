@@ -106,7 +106,7 @@
             </div>
             <div class="modal-body">
                 <div class="action-sheet-content text-center">
-                    <a href="user/profile" class="btn btn-primary btn-block">My profile</a>
+                    <a href="{{route('profile')}}" class="btn btn-primary btn-block">My profile</a>
                     <div class="row mt-2">
                         <div class="col-6">
                             <button type="button" class="btn btn-info btn-block" data-bs-dismiss="modal"><i

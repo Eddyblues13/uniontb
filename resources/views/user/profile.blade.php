@@ -180,7 +180,7 @@
 
                     <div class="form-group basic">
                         <div class="input-wrapper">
-                            <label class="label" for="country">Country</label>
+                            <label class="label" for="country">Countrry</label>
                             <select name="country" class="form-control" id="country" required>
                                 <option value="{{ Auth::user()->country }}">{{ Auth::user()->country ?? '-1' }}</option>
                                 <!-- Add more country options here -->

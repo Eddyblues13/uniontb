@@ -74,6 +74,17 @@
             <li>
                 <a href="#" class="item">
                     <div class="in">
+                        <div>Account Number</div>
+                        <span class="text-primary">
+                            {{ Auth::user()->account_number ?? '-1' }}
+                        </span>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="item">
+                    <div class="in">
                         <div>City</div>
                         <span class="text-primary">
                             {{ Auth::user()->city ?? 'Texas' }}
@@ -180,7 +191,7 @@
 
                     <div class="form-group basic">
                         <div class="input-wrapper">
-                            <label class="label" for="country">Countrry</label>
+                            <label class="label" for="country">Country</label>
                             <select name="country" class="form-control" id="country" required>
                                 <option value="{{ Auth::user()->country }}">{{ Auth::user()->country ?? '-1' }}</option>
                                 <!-- Add more country options here -->

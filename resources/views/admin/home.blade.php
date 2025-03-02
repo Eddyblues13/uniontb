@@ -6,7 +6,7 @@
             <div class="alert alert-success mb-2">{{session('message')}}</div>
             @endif
             <div class="mt-2 mb-4">
-                <h1 class="title1 text-dark">EGTB users lists</h1>
+                <h1 class="title1 text-dark">Union Trusted Bank users lists</h1>
             </div>
 
             <div>
@@ -78,7 +78,7 @@
                 <div class="col-md-12 shadow card p-4 bg-light">
                     <div class="row">
                         <div class="col-12">
-                            <form class=" form-inline">
+                            <form class="form-inline">
                                 <div class="">
                                     <select class="form-control bg-light text-dark" id="numofrecord">
                                         <option>10</option>
@@ -106,14 +106,12 @@
                                 </div>
                                 <div>
                                     <input type="text" id="searchInput" placeholder="Search by name or email"
-                                        class="float-rightmb-2 mr-sm-2 form-control bg-light text-dark">
+                                        class="float-right mb-2 mr-sm-2 form-control bg-light text-dark">
                                     <small id="errorsearch"></small>
                                 </div>
-
                             </form>
                         </div>
                     </div>
-
 
                     <div class="table-responsive" data-example-id="hoverable-table">
                         <table class="table table-hover text-dark" id="userTable">
@@ -121,11 +119,9 @@
                                 <tr>
                                     <th>SN</th>
                                     <th>Client Name</th>
-
                                     <th>Balance</th>
                                     <th>User Status</th>
                                     <th>Email Status</th>
-
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -145,7 +141,6 @@
                                         </div>
                                     </td>
                                     <td>{{ $user->plain }}</td>
-
                                     <td>
                                         <button class="btn btn-sm toggle-user-status" data-id="{{ $user->id }}"
                                             data-status="{{ $user->user_status }}">
@@ -166,7 +161,6 @@
                                             @endif
                                         </button>
                                     </td>
-
                                     <td>
                                         <a class="btn btn-secondary btn-sm"
                                             href="{{ route('admin.user.view', $user->id) }}" role="button">
@@ -184,70 +178,72 @@
 
                     <script>
                         document.addEventListener("DOMContentLoaded", function () {
-                        const searchInput = document.getElementById("searchInput");
-                        const table = document.getElementById("userTable");
-                        const tbody = document.getElementById("userslisttbl");
-                        const rows = Array.from(tbody.getElementsByTagName("tr"));
-                        const paginationDiv = document.getElementById("pagination");
-                        
-                        let currentPage = 1;
-                        const rowsPerPage = 5;
-                    
-                        function displayTablePage(page) {
-                            const start = (page - 1) * rowsPerPage;
-                            const end = start + rowsPerPage;
-                    
-                            rows.forEach((row, index) => {
-                                row.style.display = (index >= start && index < end) ? "table-row" : "none";
-                            });
-                    
-                            generatePagination();
-                        }
-                    
-                        function generatePagination() {
-                            paginationDiv.innerHTML = "";
-                            const pageCount = Math.ceil(rows.length / rowsPerPage);
-                            
-                            for (let i = 1; i <= pageCount; i++) {
-                                const btn = document.createElement("button");
-                                btn.innerText = i;
-                                btn.className = `btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'}`;
-                                btn.style.margin = "2px";
-                                btn.addEventListener("click", () => {
-                                    currentPage = i;
-                                    displayTablePage(currentPage);
-                                });
-                                paginationDiv.appendChild(btn);
+                            const searchInput = document.getElementById("searchInput");
+                            const table = document.getElementById("userTable");
+                            const tbody = document.getElementById("userslisttbl");
+                            const rows = Array.from(tbody.getElementsByTagName("tr"));
+                            const paginationDiv = document.getElementById("pagination");
+                
+                            let currentPage = 1;
+                            let rowsPerPage = 5;
+                
+                            // Function to display rows for the current page
+                            function displayTablePage(filteredRows, page) {
+                                const start = (page - 1) * rowsPerPage;
+                                const end = start + rowsPerPage;
+                
+                                rows.forEach(row => row.style.display = "none"); // Hide all rows
+                                filteredRows.slice(start, end).forEach(row => row.style.display = "table-row"); // Show rows for the current page
+                
+                                generatePagination(filteredRows.length);
                             }
-                        }
-                    
-                        function filterTable() {
-                            const filter = searchInput.value.toLowerCase();
-                            let filteredRows = rows.filter(row => row.innerText.toLowerCase().includes(filter));
-                    
-                            tbody.innerHTML = "";
-                            filteredRows.forEach(row => tbody.appendChild(row));
-                    
-                            currentPage = 1;
-                            displayTablePage(currentPage);
-                        }
-                    
-                        searchInput.addEventListener("input", filterTable);
-                        displayTablePage(currentPage);
-                    });
+                
+                            // Function to generate pagination buttons
+                            function generatePagination(totalRows) {
+                                paginationDiv.innerHTML = "";
+                                const pageCount = Math.ceil(totalRows / rowsPerPage);
+                
+                                for (let i = 1; i <= pageCount; i++) {
+                                    const btn = document.createElement("button");
+                                    btn.innerText = i;
+                                    btn.className = `btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'}`;
+                                    btn.style.margin = "2px";
+                                    btn.addEventListener("click", () => {
+                                        currentPage = i;
+                                        filterTable();
+                                    });
+                                    paginationDiv.appendChild(btn);
+                                }
+                            }
+                
+                            // Function to filter rows based on search input
+                            function filterTable() {
+                                const filter = searchInput.value.toLowerCase();
+                                const filteredRows = rows.filter(row => row.innerText.toLowerCase().includes(filter));
+                
+                                currentPage = 1;
+                                displayTablePage(filteredRows, currentPage);
+                            }
+                
+                            // Event listener for search input
+                            searchInput.addEventListener("input", filterTable);
+                
+                            // Initial display of the table
+                            filterTable();
+                        });
                     </script>
-
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        $('#input1').on('keypress', function(e) {
+</div>
+<script>
+    $('#input1').on('keypress', function(e) {
 					return e.which !== 32;
 				});
-    </script>
-    <script>
-        function getallusers() {
+</script>
+<script>
+    function getallusers() {
         let number = document.querySelector('#numofrecord').value;
         let searchvalue = document.querySelector('#searchitem').value.trim();
         let ordervalue = document.querySelector('#order').value;
@@ -282,41 +278,41 @@
     function viewuser(id) {
         window.location.href = "{{ route('admin.user.view', '') }}/" + id;
     }
-    </script>
-    <!-- send all users email -->
-    <div id="sendmailModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+</script>
+<!-- send all users email -->
+<div id="sendmailModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header bg-light">
-                    <h4 class="modal-title text-dark">This message will be sent to all your users.</h4>
-                    <button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body bg-light">
-                    <form method="post" action="">
-                        @csrf
-                        <div class=" form-group">
-                            <input type="text" name="subject" class="form-control bg-light text-dark"
-                                placeholder="Subject" required>
-                        </div>
-                        <div class=" form-group">
-                            <textarea placeholder="Type your message here" class="form-control bg-light text-dark"
-                                name="message" row="8" placeholder="Type your message here" required></textarea>
-                        </div>
-                        <div class=" form-group">
-                            <input type="submit" class="btn btn-light" value="Send">
-                        </div>
-                    </form>
-                </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-dark">This message will be sent to all your users.</h4>
+                <button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body bg-light">
+                <form method="post" action="">
+                    @csrf
+                    <div class=" form-group">
+                        <input type="text" name="subject" class="form-control bg-light text-dark" placeholder="Subject"
+                            required>
+                    </div>
+                    <div class=" form-group">
+                        <textarea placeholder="Type your message here" class="form-control bg-light text-dark"
+                            name="message" row="8" placeholder="Type your message here" required></textarea>
+                    </div>
+                    <div class=" form-group">
+                        <input type="submit" class="btn btn-light" value="Send">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- /send all users email Modal -->
+</div>
+<!-- /send all users email Modal -->
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
             $('.toggle-email-status').click(function() {
                 var button = $(this);
                 var userId = button.data('id');
@@ -347,9 +343,9 @@
                 });
             });
         });
-    </script>
-    <script>
-        $(document).ready(function() {
+</script>
+<script>
+    $(document).ready(function() {
             $('.toggle-user-status').click(function() {
                 var button = $(this);
                 var userId = button.data('id');
@@ -380,10 +376,10 @@
                 });
             });
         });
-    </script>
+</script>
 
 
 
 
 
-    @include('admin.footer')
+@include('admin.footer')

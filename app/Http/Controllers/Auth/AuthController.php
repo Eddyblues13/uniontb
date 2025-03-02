@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use session;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Mail\VerificationEmail;
@@ -126,7 +127,7 @@ class AuthController extends Controller
      */
     public function showLoginForm()
     {
-        return view('home.login');
+        return view('home.homepage');
     }
 
     /**

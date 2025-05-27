@@ -213,8 +213,9 @@
 
         <div class="receipt-body">
             <div class="transaction-id">
-                Transaction ID: {{ $transactionId }}
+                Transaction ID: {{ 'TXN-' . strtoupper(uniqid()) }}
             </div>
+
 
             <div class="transaction-details">
                 <div class="detail-row">

@@ -455,12 +455,18 @@
             <div class="subtitle">Official Payment Receipt • Valid Financial Document</div>
         </div>
 
+        @php
+        $transactionId = 'TXN-' . strtoupper(uniqid());
+        @endphp
+
         <div class="receipt-body">
             <div class="transaction-id-container">
-                <div class="transaction-id" onclick="copyToClipboard('{{ 'TXN-' . strtoupper(uniqid()) }}')">
+                <div class="transaction-id" onclick="copyToClipboard('{{ $transactionId }}')">
                     <i class="fas fa-fingerprint"></i>
-                    <span id="txn-id">{{ 'TXN-' . strtoupper(uniqid()) }}</span>
+                    <span id="txn-id">{{ $transactionId }}</span>
                 </div>
+
+
                 <div class="transaction-security">
                     <i class="fas fa-shield-alt security-pulse"></i>
                     <span>Secured with 256-bit encryption • Validated {{ now()->format('M d, Y \a\t H:i') }}</span>
@@ -550,9 +556,7 @@
         </div>
     </div>
 
-    @php
-    $transactionId = 'TXN-' . strtoupper(uniqid());
-    @endphp
+
 
 
     <div class="button-container">

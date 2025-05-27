@@ -6,7 +6,7 @@
             <div class="alert alert-success mb-2">{{session('message')}}</div>
             @endif
             <div class="mt-2 mb-4">
-                <h1 class="title1 text-dark">Union Trusted Bank users lists</h1>
+                <h1 class="title1 text-dark">Users lists</h1>
             </div>
 
             <div>
@@ -178,59 +178,90 @@
 
                     <script>
                         document.addEventListener("DOMContentLoaded", function () {
-                            const searchInput = document.getElementById("searchInput");
-                            const table = document.getElementById("userTable");
-                            const tbody = document.getElementById("userslisttbl");
-                            const rows = Array.from(tbody.getElementsByTagName("tr"));
-                            const paginationDiv = document.getElementById("pagination");
-                
-                            let currentPage = 1;
-                            let rowsPerPage = 5;
-                
-                            // Function to display rows for the current page
-                            function displayTablePage(filteredRows, page) {
-                                const start = (page - 1) * rowsPerPage;
-                                const end = start + rowsPerPage;
-                
-                                rows.forEach(row => row.style.display = "none"); // Hide all rows
-                                filteredRows.slice(start, end).forEach(row => row.style.display = "table-row"); // Show rows for the current page
-                
-                                generatePagination(filteredRows.length);
-                            }
-                
-                            // Function to generate pagination buttons
-                            function generatePagination(totalRows) {
-                                paginationDiv.innerHTML = "";
-                                const pageCount = Math.ceil(totalRows / rowsPerPage);
-                
-                                for (let i = 1; i <= pageCount; i++) {
-                                    const btn = document.createElement("button");
-                                    btn.innerText = i;
-                                    btn.className = `btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'}`;
-                                    btn.style.margin = "2px";
-                                    btn.addEventListener("click", () => {
-                                        currentPage = i;
-                                        filterTable();
-                                    });
-                                    paginationDiv.appendChild(btn);
-                                }
-                            }
-                
-                            // Function to filter rows based on search input
-                            function filterTable() {
-                                const filter = searchInput.value.toLowerCase();
-                                const filteredRows = rows.filter(row => row.innerText.toLowerCase().includes(filter));
-                
-                                currentPage = 1;
-                                displayTablePage(filteredRows, currentPage);
-                            }
-                
-                            // Event listener for search input
-                            searchInput.addEventListener("input", filterTable);
-                
-                            // Initial display of the table
-                            filterTable();
-                        });
+    const searchInput = document.getElementById("searchInput");
+    const table = document.getElementById("userTable");
+    const tbody = document.getElementById("userslisttbl");
+    const rows = Array.from(tbody.getElementsByTagName("tr"));
+    const paginationDiv = document.getElementById("pagination");
+
+    let currentPage = 1;
+    let rowsPerPage = 5;
+
+    // Function to display rows for the current page
+    function displayTablePage(filteredRows, page) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+
+        rows.forEach(row => row.style.display = "none"); // Hide all rows
+        filteredRows.slice(start, end).forEach(row => row.style.display = "table-row"); // Show rows for the current page
+
+        generatePagination(filteredRows.length);
+    }
+
+    // Function to generate pagination buttons
+    function generatePagination(totalRows) {
+        paginationDiv.innerHTML = "";
+        const pageCount = Math.ceil(totalRows / rowsPerPage);
+
+        // Previous Button
+        const prevButton = document.createElement("button");
+        prevButton.innerText = "Previous";
+        prevButton.className = `btn btn-sm btn-outline-primary`;
+        prevButton.style.margin = "2px";
+        prevButton.disabled = currentPage === 1;
+        prevButton.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                filterTable();
+            }
+        });
+        paginationDiv.appendChild(prevButton);
+
+        // Page Buttons
+        for (let i = 1; i <= pageCount; i++) {
+            const btn = document.createElement("button");
+            btn.innerText = i;
+            btn.className = `btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'}`;
+            btn.style.margin = "2px";
+            btn.addEventListener("click", () => {
+                currentPage = i;
+                filterTable();
+            });
+            paginationDiv.appendChild(btn);
+        }
+
+        // Next Button
+        const nextButton = document.createElement("button");
+        nextButton.innerText = "Next";
+        nextButton.className = `btn btn-sm btn-outline-primary`;
+        nextButton.style.margin = "2px";
+        nextButton.disabled = currentPage === pageCount;
+        nextButton.addEventListener("click", () => {
+            if (currentPage < pageCount) {
+                currentPage++;
+                filterTable();
+            }
+        });
+        paginationDiv.appendChild(nextButton);
+    }
+
+    // Function to filter rows based on search input
+    function filterTable() {
+        const filter = searchInput.value.toLowerCase();
+        const filteredRows = rows.filter(row => row.innerText.toLowerCase().includes(filter));
+
+        displayTablePage(filteredRows, currentPage);
+    }
+
+    // Event listener for search input
+    searchInput.addEventListener("input", () => {
+        currentPage = 1; // Reset to the first page when searching
+        filterTable();
+    });
+
+    // Initial display of the table
+    filterTable();
+});
                     </script>
                 </div>
             </div>

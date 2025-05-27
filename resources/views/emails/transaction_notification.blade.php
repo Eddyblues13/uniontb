@@ -160,7 +160,7 @@
                                         <a href=''
                                             style='display: block; border-style: none !important; border: 0 !important;'>
                                             <img width='100' border='0' style='display: block; width: 100%;'
-                                                src="{{asset('logo.png')}}" alt="Union Trusted Bank" />
+                                                src="{{asset('uploads/logo.png')}}" alt="Union Trusted Bank" />
                                         </a>
                                     </td>
                                 </tr>
@@ -182,18 +182,17 @@
                     <tr>
                         <td align="left"
                             style="color: #888888; font-size: 16px; font-family: Arial, sans-serif; line-height: 24px;">
+
                             <p>Dear {{ $user->name }},</p>
-                            <p>Your {{ $type }} account has been {{ strtolower($transactionType) }}ed with the following
-                                details:</p>
+                            <p>Your account has been {{ $transactionType }}ed with the following details:</p>
                             <ul>
-                                <li>Amount: ${{ number_format($amount, 2) }}</li>
-                                <li>Account Type: {{ $type }}</li>
-                                <li>Transaction Type: {{ ucfirst($transactionType) }}</li>
+                                <li>Amount: {{ $user->currency ?? '$' }}{{ number_format($amount, 2) }} </li>
+                                <li>Category: {{ $type }}</li>
+                                <li>Type: {{ $transactionType }}</li>
+
                             </ul>
-                            <p>If you did not initiate this transaction, please contact our support team immediately.
-                            </p>
-                            <p>Thank you for banking with us!</p>
-                            <p>Kind Regards,<br>Union Trusted Bank</p>
+                            <p>Thank you for using our service!</p>
+                            <p>Kind Regards,<br>Union Trusted Bank.</p>
                         </td>
                     </tr>
                 </table>

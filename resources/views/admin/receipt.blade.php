@@ -550,6 +550,11 @@
         </div>
     </div>
 
+    @php
+    $transactionId = 'TXN-' . strtoupper(uniqid());
+    @endphp
+
+
     <div class="button-container">
         <button class="btn" onclick="downloadPDF()">
             <i class="fas fa-file-pdf"></i> Download PDF Receipt

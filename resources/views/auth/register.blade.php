@@ -8,16 +8,16 @@
     <!-- End Required meta tags -->
     <!-- Begin SEO tag -->
     <title>
-        Open Account | Union Trust Bank </title>
-    <meta property="og:title" content="Union Trust Bank">
-    <meta name="author" content="Union Trust Bank">
+        Open Account | Union Savings Bank </title>
+    <meta property="og:title" content="Union Savings Bank">
+    <meta name="author" content="Union Savings Bank">
     <meta name="description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta name="keywords" content="First Citizen Bank">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta name="og:keywords" content="First Citizen Bank">
     <meta property="og:url" content="https://fccub.com">
-    <meta property="og:site_name" content="Union Trust Bank">
+    <meta property="og:site_name" content="Union Savings Bank">
     <meta property="og:image" content="https://fccub.com/uploads/logo.png" />
     <link rel="canonical" href="https://fccub.com">
     <!-- favicon & bookmark -->

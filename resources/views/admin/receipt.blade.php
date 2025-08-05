@@ -546,7 +546,7 @@
         </div>
 
         <div class="receipt-footer">
-            <p>This is an official transaction receipt from Union Trusted Bank. Please retain for your records.</p>
+            <p>This is an official transaction receipt from Union Savings Bank. Please retain for your records.</p>
             <p>For any inquiries, please contact our customer support with the transaction reference above.</p>
             <div class="footer-links">
                 <a href="#"><i class="fas fa-headset"></i> Contact Support</a>

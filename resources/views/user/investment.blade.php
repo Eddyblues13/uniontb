@@ -93,7 +93,7 @@
                                                 </div>
                                                 <div class="h5 text-center">Expert Guidance</div>
                                                 <p class="text-center">Tap into
-                                                    Union Trust BankResearch Footnote for help adapting your
+                                                    Union Savings BankResearch Footnote for help adapting your
                                                     investment strategy to changes in the markets and in your life.</p>
 
                                             </div>
@@ -102,7 +102,7 @@
                                                 </div>
                                                 <div class="h5 text-center">Personal Connection</div>
                                                 <p class="text-center">Work with a
-                                                    Union Trust BankAdvisor to develop a personalized strategy to
+                                                    Union Savings BankAdvisor to develop a personalized strategy to
                                                     help you meet your most important goals. </p>
 
                                             </div>
@@ -118,7 +118,7 @@
                                     <div class="col-lg-8">
                                         <h2>Stay informed with research that sets the standard</h2>
                                         <p>
-                                            Union Trust Bankanalysts deliver comprehensive market research that leads
+                                            Union Savings Bankanalysts deliver comprehensive market research that leads
                                             the industry. Browse the latest insights, like market performance over time
                                             Footnote, to help you make informed investment decisions.</p>
 
@@ -309,7 +309,7 @@
                         <div class="wrapper">
                             <div class="credit-card-wrap">
                                 <div class="credit-card-inner">
-                                    <img src="https://uniontb.online/uploads/logo.png" class="pull-right sitelogo">
+                                    <img src="https://unionsb.online/uploads/logo.png" class="pull-right sitelogo">
                                     <div class="mk-icon-sim"></div>
                                     <div class="credit-font credit-card-number" data-text="">4716 XXXX XXXX
                                         7554 </div>
@@ -346,7 +346,7 @@
                                         class="fas fa-piggy-bank image-block imaged w48 text-warning"></span>
                                     <div> <strong>Auto Save</strong>
                                         <p>Set a goal, save automatically with
-                                            Union Trust Bank's Auto Save and track your progress.
+                                            Union Savings Bank's Auto Save and track your progress.
                                         </p>
                                     </div>
                                 </div>

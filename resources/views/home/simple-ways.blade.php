@@ -182,7 +182,7 @@
             <div class="footer-quick-bar__text">
                 <h2 class='footer-quick-bar__item-header'><a
                         class="footer-quick-bar__item-header footer-quick-bar__item-header--phone"
-                        href="mailto:support@uniontb.online">support@uniontb.online</a></h2>
+                        href="mailto:support@unionsb.online">support@unionsb.online</a></h2>
                 <h3 class='footer-quick-bar__item-subtitle'>Customer Service</h3>
             </div>
         </div>

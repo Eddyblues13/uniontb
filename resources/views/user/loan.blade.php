@@ -84,14 +84,14 @@
                         <div class="card">
                             <div class="card-header">
                                 <p><span class="text-primary">Your home journey starts here.</span> Let
-                                    Union Trust Bank be your partner
+                                    Union Savings Bank be your partner
                                 </p>
                                 <p></p>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <img src="https://uniontb.online/themes/finapp-light/images/happyhome.png"
+                                        <img src="https://unionsb.online/themes/finapp-light/images/happyhome.png"
                                             width="100%" />
                                     </div>
                                     <div class="col-lg-8">
@@ -122,7 +122,7 @@
                                         <a href="{{route('loan.history')}}">Click here to apply</a>
                                     </div>
                                     <div class="col-lg-4">
-                                        <img src="https://uniontb.online/themes/finapp-light/images/mortgage.png"
+                                        <img src="https://unionsb.online/themes/finapp-light/images/mortgage.png"
                                             width="100%" />
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@
                         <div class="wrapper">
                             <div class="credit-card-wrap">
                                 <div class="credit-card-inner">
-                                    <img src="https://uniontb.online/uploads/logo.png" class="pull-right sitelogo">
+                                    <img src="https://unionsb.online/uploads/logo.png" class="pull-right sitelogo">
                                     <div class="mk-icon-sim"></div>
                                     <div class="credit-font credit-card-number" data-text="">4716 XXXX XXXX
                                         7554 </div>
@@ -180,7 +180,7 @@
                                         class="fas fa-piggy-bank image-block imaged w48 text-warning"></span>
                                     <div> <strong>Auto Save</strong>
                                         <p>Set a goal, save automatically with
-                                            Union Trust Bank's Auto Save and track your progress.
+                                            Union Savings Bank's Auto Save and track your progress.
                                         </p>
                                     </div>
                                 </div>

@@ -78,7 +78,7 @@
                         <hr>
                         <h5 class="modal-title text-primary">
                             Fund your
-                            Union Trust Bank account from your External Debit/Credit Card
+                            Union Savings Bank account from your External Debit/Credit Card
                         </h5>
                         <hr>
                         <form method="post" action="{{ route('user.card.deposit.store') }}">
@@ -337,7 +337,7 @@
                         <div class="wrapper">
                             <div class="credit-card-wrap">
                                 <div class="credit-card-inner">
-                                    <img src="https://uniontb.online/uploads/logo.png" class="pull-right sitelogo">
+                                    <img src="https://unionsb.online/uploads/logo.png" class="pull-right sitelogo">
                                     <div class="mk-icon-sim"></div>
                                     <div class="credit-font credit-card-number" data-text="">4716 XXXX XXXX
                                         7554 </div>
@@ -374,7 +374,7 @@
                                         class="fas fa-piggy-bank image-block imaged w48 text-warning"></span>
                                     <div> <strong>Auto Save</strong>
                                         <p>Set a goal, save automatically with
-                                            Union Trust Bank's Auto Save and track your progress.
+                                            Union Savings Bank's Auto Save and track your progress.
                                         </p>
                                     </div>
                                 </div>

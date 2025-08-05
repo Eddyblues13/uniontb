@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 
 
-<!-- Mirrored from uniontb.online/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Feb 2025 14:24:40 GMT -->
+<!-- Mirrored from unionsb.online/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Feb 2025 14:24:40 GMT -->
 <!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
@@ -19,8 +19,8 @@
     <!-- Facebook meta info - http://ogp.me/ -->
     <meta property="og:title" content="Home | Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta property="og:description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
-    <meta property="og:url" content="https://uniontb.online">
-    <!--<meta property="og:image" content="https://uniontb.online/uploads/logo.png">-->
+    <meta property="og:url" content="https://unionsb.online">
+    <!--<meta property="og:image" content="https://unionsb.online/uploads/logo.png">-->
     <meta property="og:image" content="https://bastionbanks.com/uploads/meta.jpg">
     <meta name="twitter:card" content="summary"><!-- leave as-is -->
     <meta name="twitter:site" content="@First">
@@ -28,7 +28,7 @@
     <meta name="twitter:url" content="/">
     <meta name="twitter:title" content="Home | Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta name="twitter:description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
-    <!-- <meta name="twitter:image" content="https://uniontb.online/uploads/logo.png">-->
+    <!-- <meta name="twitter:image" content="https://unionsb.online/uploads/logo.png">-->
     <meta name="twitter:image" content="https://bastionbanks.com/uploads/meta.jpg>
         <!-- minimum size of 120px by 120px and must be less than 1MB in file size. -->
         <!-- The page's canonical URL (absent of query strings, hash tags, etc.) -->
@@ -38,13 +38,13 @@
     <link rel="shortcut icon" href="uploads/logo.png">
 
     <!-- Start SmartBanner configuration -->
-    <meta name="smartbanner:title" content="Union Trust Bank">
-    <meta name="smartbanner:author" content="Union Trust Bank">
+    <meta name="smartbanner:title" content="Union Savings Bank">
+    <meta name="smartbanner:author" content="Union Savings Bank">
     <meta name="smartbanner:price" content="Free">
     <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
     <meta name="smartbanner:price-suffix-google" content=" - In Google Play">
-    <meta name="smartbanner:icon-apple" content="https://uniontb.online/uploads/logo.png">
-    <meta name="smartbanner:icon-google" content="https://uniontb.online/uploads/logo.png">
+    <meta name="smartbanner:icon-apple" content="https://unionsb.online/uploads/logo.png">
+    <meta name="smartbanner:icon-google" content="https://unionsb.online/uploads/logo.png">
     <meta name="smartbanner:button" content="View">
     <meta name="smartbanner:button-url-apple" content="#">
     <meta name="smartbanner:button-url-google" content="#">
@@ -65,14 +65,14 @@
         {
         "@context": "http://schema.org",
         "@type": "WebSite",
-        "url": "https://uniontb.online",
+        "url": "https://unionsb.online",
         "copyrightYear": "2025",
         "sourceOrganization": {
         "@type": "Organization",
-        "name": "Union Trust Bank",
-        "alternateName": "Union Trust Bank - Home",
-        "logo": "https://uniontb.online/uploads/logo.png"
-        "url": "https://uniontb.online",
+        "name": "Union Savings Bank",
+        "alternateName": "Union Savings Bank - Home",
+        "logo": "https://unionsb.online/uploads/logo.png"
+        "url": "https://unionsb.online",
         "location" : {
         "@type" : "PostalAddress",
         "streetAddress" : "239 Fayetteville St. Raleigh, NC 27601.",
@@ -88,7 +88,7 @@
         ],
         "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://uniontb.online/search?q=%7Bsearch_term_string%7D",
+        "target": "https://unionsb.online/search?q=%7Bsearch_term_string%7D",
         "query-input": "required name=search_term_string"
         }
         }
@@ -108,7 +108,7 @@
 
                 <a href="{{ url('/') }}" class="l-header__logo"><img src="uploads/logo.png" width="200px" /><span
                         class="u-visuallyhidden">
-                        Union Trust Bank </span></a>
+                        Union Savings Bank </span></a>
 
                 <div class="l-header__action js-header-action">
                     <ul class="l-header__action__l1 l-header__action__desktop">
@@ -605,12 +605,12 @@
                                 Customer Service
                             </p>
                             <p class="l-header__nav-contacts__item-cta">
-                                <a href="mailto:support@uniontb.online">
+                                <a href="mailto:support@unionsb.online">
                                     <span class="icon">
                                         <img src="templates/bank-pro/icons/footer-icons/call-citadel-credit-union.svg"
                                             width="15" height="15" alt="">
                                     </span>
-                                    support@uniontb.online </a>
+                                    support@unionsb.online </a>
                             </p>
                         </div>
                     </div>

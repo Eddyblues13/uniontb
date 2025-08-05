@@ -23,7 +23,7 @@
                     <div class="main-hero__container lazyload" data-expand="-50">
                         <div class='main-hero__content l-contain'>
                             <div class='main-hero__header'>
-                                <p class='main-hero__title' id="main-hero-title">Union Trust Bank</p>
+                                <p class='main-hero__title' id="main-hero-title">Union Savings Bank</p>
                                 <p class='main-hero__subtitle'>We do banking differently. We believe that people come
                                     first, and that everyone deserves a great experience every step of the way – whether
                                     it’s face to face, over the phone, online or on our app.</p>
@@ -63,7 +63,7 @@
                                         <dt>Saturday:</dt>
                                         <dd>9:00 a.m.-1:00 p.m.</dd>
                                     </dl>
-                                    <a class="button--navy-outline" href="mailto:support@uniontb.online">Schedule an
+                                    <a class="button--navy-outline" href="mailto:support@unionsb.online">Schedule an
                                         Appointment</a>
                                 </div>
                             </li>
@@ -498,7 +498,7 @@
                                                 <div class="cell small-6 large-3">
                                                     <div class="tabbed-feature__link">
                                                         <a class="gtm__tabbed-feature__customer-support"
-                                                            href="mailto:support@uniontb.online">
+                                                            href="mailto:support@unionsb.online">
                                                             <span class="icon icon--solid" aria-hidden="true">
                                                                 <img src="templates/bank-pro/tabbed-icons/icon-send-message.svg"
                                                                     width="85" height="85" alt="">
@@ -521,7 +521,7 @@
                                                 <div class="cell small-6 large-3">
                                                     <div class="tabbed-feature__link">
                                                         <a class="gtm__tabbed-feature__customer-support"
-                                                            href="mailto:support@uniontb.online">
+                                                            href="mailto:support@unionsb.online">
                                                             <span class="icon icon--solid" aria-hidden="true">
                                                                 <img src="templates/bank-pro/tabbed-icons/icon-calendar.svg"
                                                                     width="85" height="85" alt="">
@@ -801,7 +801,7 @@
             <div class="footer-quick-bar__text">
                 <h2 class='footer-quick-bar__item-header'><a
                         class="footer-quick-bar__item-header footer-quick-bar__item-header--phone"
-                        href="mailto:support@uniontb.online">support@uniontb.online</a></h2>
+                        href="mailto:support@unionsb.online">support@unionsb.online</a></h2>
                 <h3 class='footer-quick-bar__item-subtitle'>Customer Service</h3>
             </div>
         </div>

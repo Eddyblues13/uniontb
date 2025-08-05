@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        Account | Union Trust Bank </title>
-    <meta property="og:title" content="Union Trust Bank">
-    <meta name="author" content="Union Trust Bank">
+        Account | Union Savings Bank </title>
+    <meta property="og:title" content="Union Savings Bank">
+    <meta name="author" content="Union Savings Bank">
     <meta name="description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta name="keywords" content="First Citizen Bank">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="Mobile Banking, Credit Cards, Mortgages, Auto Loan">
     <meta name="og:keywords" content="First Citizen Bank">
-    <meta property="og:url" content="https://uniontb.online">
-    <meta property="og:site_name" content="Union Trust Bank">
+    <meta property="og:url" content="https://unionsb.online">
+    <meta property="og:site_name" content="Union Savings Bank">
     <meta property="og:image" content="uploads/logo.png" />
-    <link rel="canonical" href="https://uniontb.online">
+    <link rel="canonical" href="https://unionsb.online">
     <!-- favicon & bookmark -->
     <link rel="apple-touch-icon" sizes="144x144" href="uploads/logo.png">
     <link rel="shortcut icon" href="uploads/logo.png">

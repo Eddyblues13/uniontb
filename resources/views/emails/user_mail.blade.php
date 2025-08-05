@@ -66,10 +66,10 @@
             <p>Dear User,</p>
             <p>{!! nl2br(e($messageBody)) !!}</p>
             <p>Best Regards,</p>
-            <p><strong>Union Trust Bank</strong></p>
+            <p><strong>Union Savings Bank</strong></p>
         </div>
         <div class="footer">
-            <p>&copy; {{ date('Y') }} Union Trust Bank. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Union Savings Bank. All rights reserved.</p>
         </div>
     </div>
 </body>

@@ -15,7 +15,7 @@
                         <div class='sub-hero-content l-contain'>
                             <div class='sub-hero-content-inner'>
                                 <p class="sub-hero__title mb-1">The Smart Place to Save</p>
-                                <p class='sub-hero__teaser p'>Union Trust Bank is a highly ranked global financial
+                                <p class='sub-hero__teaser p'>Union Savings Bank is a highly ranked global financial
                                     institution</p>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                         <div class="join-cta-content l-contain u-align-center">
                             <h2 class="join-cta__title ">Ready to speak with a representative about a First savings
                                 account? </h2>
-                            <a href="mailto:support@uniontb.online" class="join-cta__link" rel="noopener noreferrer"
+                            <a href="mailto:support@unionsb.online" class="join-cta__link" rel="noopener noreferrer"
                                 target="_blank" title="Online Appointment Scheduling">Schedule
                                 Appointment</a>
                         </div>
@@ -165,7 +165,7 @@
             <div class="footer-quick-bar__text">
                 <h2 class='footer-quick-bar__item-header'><a
                         class="footer-quick-bar__item-header footer-quick-bar__item-header--phone"
-                        href="mailto:support@uniontb.online">support@uniontb.online</a></h2>
+                        href="mailto:support@unionsb.online">support@unionsb.online</a></h2>
                 <h3 class='footer-quick-bar__item-subtitle'>Customer Service</h3>
             </div>
         </div>

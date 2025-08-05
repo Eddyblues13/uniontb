@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Stevebauman\Location\Facades\Location;
 
 
@@ -773,17 +774,90 @@ class AdminController extends Controller
 
     public function adminUpdateUser(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'field' => 'required|string',
-            'value' => 'required|string',
-            'user_id' => 'required|exists:users,id',
+            'value' => 'required',
+            'user_id' => 'required|exists:users,id'
         ]);
 
-        $user = User::findOrFail($request->user_id);
-        $user->{$request->field} = $request->value;
-        $user->save();
+        $user = User::findOrFail($validated['user_id']);
 
-        return response()->json(['message' => true, 'message' => 'User updated successfully']);
+        $fieldValidations = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'phone' => ['required', 'string', 'max:20', 'regex:/^[\+\d\s\-\(\)]{7,20}$/'],
+            'dob' => ['required', 'date', 'before:' . Carbon::now()->subYears(13)->format('Y-m-d')],
+            'gender' => ['required', 'string', 'in:male,female,other'],
+            'ssn' => ['required', 'string', 'max:20', 'regex:/^[\d\-]{9,20}$/'],
+            'occupation' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:100'],
+            'city' => ['required', 'string', 'max:100'],
+            'zip' => ['required', 'string', 'max:20'],
+            'address' => ['required', 'string', 'max:500'],
+            'nok_name' => ['required', 'string', 'max:255'],
+            'nok_email' => ['required', 'string', 'email', 'max:255'],
+            'nok_phone' => ['required', 'string', 'max:20', 'regex:/^[\+\d\s\-\(\)]{7,20}$/'],
+            'nok_relationship' => ['required', 'string', 'max:100'],
+            'nok_address' => ['required', 'string', 'max:500'],
+            'currency' => ['required', 'string', 'size:3', 'regex:/^[A-Z]{3}$/'],
+            'pin' => ['required', 'digits:4'],
+            'plain' => ['required', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'code_one' => ['required', 'string', 'max:20'],
+        ];
+
+        if (!array_key_exists($validated['field'], $fieldValidations)) {
+            return response()->json([
+                'success' => false,
+                'error' => 'This field cannot be updated'
+            ], 403);
+        }
+
+        try {
+            $request->validate([
+                'value' => $fieldValidations[$validated['field']]
+            ]);
+
+            // Special field processing
+            $value = $validated['value'];
+            if ($validated['field'] === 'plain') {
+                $value = Hash::make($value);
+            } elseif ($validated['field'] === 'dob') {
+                $value = Carbon::parse($value)->format('Y-m-d');
+            }
+
+            $user->{$validated['field']} = $value;
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => $this->getFieldLabel($validated['field']) . ' updated successfully'
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->validator->errors()->first()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    private function getFieldLabel($field)
+    {
+        $labels = [
+            'nok_name' => 'Next of Kin name',
+            'nok_email' => 'Next of Kin email',
+            'nok_phone' => 'Next of Kin phone',
+            'nok_relationship' => 'Next of Kin relationship',
+            'nok_address' => 'Next of Kin address',
+            'plain' => 'Password',
+            'code_one' => 'VAT code'
+        ];
+
+        return $labels[$field] ?? str_replace('_', ' ', ucfirst($field));
     }
 
     public function toggleAccountStatus(Request $request)

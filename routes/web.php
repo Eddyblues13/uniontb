@@ -251,7 +251,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/debit-savings', [App\Http\Controllers\Admin\TransactionController::class, 'debitSavings'])->name('debit.savings.balance');
         Route::post('/credit-checking', [App\Http\Controllers\Admin\TransactionController::class, 'creditChecking'])->name('credit.checking.balance');
         Route::post('/debit-checking', [App\Http\Controllers\Admin\TransactionController::class, 'debitChecking'])->name('debit.checking.balance');
-        Route::post('/admin/update-user', [App\Http\Controllers\Admin\AdminController::class, 'adminUpdateUser'])->name('admin.updateUser');
+        Route::post('/admin/update-user', [App\Http\Controllers\Admin\AdminController::class, 'adminUpdateUser'])->name('admin.updateUser'); 
         Route::post('/admin/toggle-account-status', [App\Http\Controllers\Admin\AdminController::class, 'toggleAccountStatus'])
             ->name('admin.toggleAccountStatus');
         Route::post('/admin/toggle-email-status', [App\Http\Controllers\Admin\AdminController::class, 'toggleEmailStatus'])

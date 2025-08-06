@@ -134,7 +134,7 @@
                                 'currency' => 'Currency',
                                 'pin' => 'PIN',
                                 'plain' => 'Password',
-                                'code_one' => 'VAT Code',
+                                'code_one' => 'TAX Code',
                                 ];
                                 @endphp
 

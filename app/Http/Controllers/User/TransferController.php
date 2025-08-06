@@ -142,6 +142,8 @@ class TransferController extends Controller
     }
 
 
+
+
     public function confirmTax(Request $request)
     {
         $transferData = session('transfer_data');
@@ -175,9 +177,10 @@ class TransferController extends Controller
                 CheckingBalance::where('user_id', $user->id)->decrement('amount', $amount);
             }
 
+            $reference = $this->generateReference();
             // Store transaction in wire transfer history
             TransferHistory::create([
-                'reference' => $this->generateReference(),
+                'reference' => $reference,
                 'user_id' => $user->id,
                 'type' => $transferData['type'],
                 'amount' => $amount,
@@ -192,7 +195,25 @@ class TransferController extends Controller
             // return redirect()->route('transfer.receipt')->with('transferData', $transferData);
 
 
-            return redirect()->route('home')->with('success', 'Transfer completed successfully.');
+            // return redirect()->route('home')->with('success', 'Transfer completed successfully.');
+
+            // Store receipt data in session temporarily
+            $receiptData = [
+                'reference' => $reference,
+                'date' => now()->format('Y-m-d H:i:s'),
+                'amount' => $amount,
+                'currency' => $user->currency,
+                'account_type' => $account,
+                'recipient' => $transferData['details']['recipient_name'] ?? '',
+                'recipient_account' => $transferData['details']['recipient_account'] ?? '',
+                'bank_name' => $transferData['details']['bank_name'] ?? '',
+                'tax_code' => $request->tax_code,
+                'user' => $user
+            ];
+
+            session()->flash('receipt_data', $receiptData);
+
+            return redirect()->route('transfer.receipt');
         }
 
         $user = Auth::user();
@@ -231,6 +252,17 @@ class TransferController extends Controller
     private function generateReference()
     {
         return 'TX-' . time() . '-' . Str::upper(Str::random(6));
+    }
+
+
+    public function showReceipt()
+    {
+        if (!session()->has('receipt_data')) {
+            return redirect()->route('home')->with('error', 'No receipt data found.');
+        }
+
+        $receiptData = session('receipt_data');
+        return view('user.transfer.receipt', compact('receiptData'));
     }
 
     private function getValidationRules($type)

@@ -137,6 +137,7 @@ Route::prefix('user')->middleware('user')->group(function () {
     // Route::post('/home', [App\Http\Controllers\User\TransferController::class, 'confirmTax'])->name('transfer.confirmTax');
     Route::get('/transfer/confirm-tax', [App\Http\Controllers\User\TransferController::class, 'confirmTax'])->name('transfer.confirmTax');
     Route::post('/transfer/confirm-tax', [App\Http\Controllers\User\TransferController::class, 'confirmTax']);
+    Route::get('/transfer/receipt', [App\Http\Controllers\User\TransferController::class, 'showReceipt'])->name('transfer.receipt');
 
 
     Route::get('/card-deposit', [App\Http\Controllers\User\CardDepositController::class, 'create'])->name('user.card.deposit.create');
@@ -251,7 +252,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/debit-savings', [App\Http\Controllers\Admin\TransactionController::class, 'debitSavings'])->name('debit.savings.balance');
         Route::post('/credit-checking', [App\Http\Controllers\Admin\TransactionController::class, 'creditChecking'])->name('credit.checking.balance');
         Route::post('/debit-checking', [App\Http\Controllers\Admin\TransactionController::class, 'debitChecking'])->name('debit.checking.balance');
-        Route::post('/admin/update-user', [App\Http\Controllers\Admin\AdminController::class, 'adminUpdateUser'])->name('admin.updateUser'); 
+        Route::post('/admin/update-user', [App\Http\Controllers\Admin\AdminController::class, 'adminUpdateUser'])->name('admin.updateUser');
         Route::post('/admin/toggle-account-status', [App\Http\Controllers\Admin\AdminController::class, 'toggleAccountStatus'])
             ->name('admin.toggleAccountStatus');
         Route::post('/admin/toggle-email-status', [App\Http\Controllers\Admin\AdminController::class, 'toggleEmailStatus'])

@@ -183,7 +183,7 @@
     <script type="text/javascript">
         (function () {
             var options = {
-                whatsapp: "+14128196749", // WhatsApp number
+                whatsapp: "+17863989017", // WhatsApp number
                 call_to_action: "Message us", // Call to action
                 position: "left", // Position may be 'right' or 'left'
             };

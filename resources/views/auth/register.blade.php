@@ -340,8 +340,16 @@
                                                             <div class="col-md-3 mb-3">
                                                                 <label
                                                                     class="text-primary font-weight-bold">Password</label>
-                                                                <input type="password" class="form-control"
-                                                                    name="password">
+                                                                <div class="input-group">
+                                                                    <input type="password" class="form-control"
+                                                                        name="password" id="reg_password">
+                                                                    <div class="input-group-append">
+                                                                        <button
+                                                                            class="btn btn-outline-secondary toggle-password-reg"
+                                                                            type="button" data-target="reg_password"><i
+                                                                                class="fa fa-eye"></i></button>
+                                                                    </div>
+                                                                </div>
                                                                 @error('password')
                                                                 <div class="alert alert-danger mt-2">{{ $message }}
                                                                 </div>
@@ -350,8 +358,18 @@
                                                             <div class="col-md-3 mb-3">
                                                                 <label class="text-primary font-weight-bold">Repeat
                                                                     Password</label>
-                                                                <input type="password" class="form-control"
-                                                                    name="password_confirmation">
+                                                                <div class="input-group">
+                                                                    <input type="password" class="form-control"
+                                                                        name="password_confirmation"
+                                                                        id="reg_password_confirmation">
+                                                                    <div class="input-group-append">
+                                                                        <button
+                                                                            class="btn btn-outline-secondary toggle-password-reg"
+                                                                            type="button"
+                                                                            data-target="reg_password_confirmation"><i
+                                                                                class="fa fa-eye"></i></button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
 
                                                         </div>
@@ -407,6 +425,30 @@
     <script src="{{asset('reg/vendor/datatable/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('reg/vendor/datatable/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{asset('reg/vendor/flatpickr/flatpickr.min.js')}}"></script>
+
+    <script>
+        document.querySelectorAll('.toggle-password-reg').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var target = document.getElementById(this.getAttribute('data-target'));
+            var icon = this.querySelector('i');
+            if (target.type === 'password') {
+                target.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                target.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
+    </script>
 
 </body>
 

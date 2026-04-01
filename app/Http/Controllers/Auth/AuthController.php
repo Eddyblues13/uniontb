@@ -75,7 +75,7 @@ class AuthController extends Controller
         // Generate a unique login ID & account number
         $loginId = rand(1000000000, 9999999999);
 
-        $accountNumber = rand(1000000000, 9999999999);
+        $accountNumber = mt_rand(100000000, 999999999);
 
 
         // Create the user
@@ -159,7 +159,7 @@ class AuthController extends Controller
         }
 
         // If login fails, redirect back with an error
-        return redirect()->back()->withErrors(['login' => 'Invalid login credentials'])->withInput();
+        return redirect()->back()->with('error', 'Invalid login credentials. Please try again.')->withInput();
     }
 
 

@@ -43,6 +43,12 @@ class TransactionController extends Controller
         $amount = $request->amount;
         $description = $request->description;
 
+        // Check balance to prevent negative account balance
+        $currentBalance = SavingsBalance::where('user_id', $user->id)->sum('amount');
+        if ($amount > $currentBalance) {
+            return back()->with('error', 'Insufficient savings balance. Current balance: ' . number_format($currentBalance, 2));
+        }
+
         SavingsBalance::create([
             'user_id' => $user->id,
             'amount' => -$amount,
@@ -92,6 +98,12 @@ class TransactionController extends Controller
         $user = User::findOrFail($request->user_id);
         $amount = $request->amount;
         $description = $request->description;
+
+        // Check balance to prevent negative account balance
+        $currentBalance = CheckingBalance::where('user_id', $user->id)->sum('amount');
+        if ($amount > $currentBalance) {
+            return back()->with('error', 'Insufficient checking balance. Current balance: ' . number_format($currentBalance, 2));
+        }
 
         CheckingBalance::create([
             'user_id' => $user->id,

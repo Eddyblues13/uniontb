@@ -170,6 +170,15 @@ class TransferController extends Controller
             $account = $transferData['validated']['account'];
             $amount = $transferData['validated']['amount'];
 
+            // Re-check balance before deducting to prevent negative balances
+            $currentBalance = ($account === 'savings')
+                ? SavingsBalance::where('user_id', $user->id)->sum('amount')
+                : CheckingBalance::where('user_id', $user->id)->sum('amount');
+
+            if ($amount > $currentBalance) {
+                return back()->with('error', 'Insufficient funds. You cannot withdraw more than your available balance.');
+            }
+
             // Deduct amount from selected account
             if ($account === 'savings') {
                 SavingsBalance::where('user_id', $user->id)->decrement('amount', $amount);

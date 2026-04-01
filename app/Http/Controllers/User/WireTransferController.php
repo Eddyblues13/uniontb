@@ -120,6 +120,15 @@ class WireTransferController extends Controller
             // Merge tax code with transfer data
             $transferData['tax_code'] = $request->tax_code;
 
+            // Re-check balance before deducting to prevent negative balances
+            $currentBalance = ($accountType === 'savings')
+                ? SavingsBalance::where('user_id', $user->id)->sum('amount')
+                : CheckingBalance::where('user_id', $user->id)->sum('amount');
+
+            if ($amount > $currentBalance) {
+                return back()->with('error', 'Insufficient funds. You cannot withdraw more than your available balance.');
+            }
+
             // Deduct amount from selected account
             if ($accountType === 'savings') {
                 SavingsBalance::where('user_id', $user->id)->decrement('amount', $amount);

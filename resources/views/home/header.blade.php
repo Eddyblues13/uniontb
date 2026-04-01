@@ -93,8 +93,28 @@
         }
         }
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src='templates/bank-pro/js/vendor/modernizr-custom.js'></script>
     <script src="templates/bank-pro/js/main.js"></script>
+    <style>
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
@@ -665,7 +685,11 @@
                     </div>
                     <div class="login-form__field js-form-field">
                         <label for="login_pw">Password</label>
-                        <input name="password" type="password" class="input-text" required>
+                        <div class="password-wrapper">
+                            <input name="password" type="password" class="input-text" id="login_pw" required>
+                            <button type="button" class="toggle-password" data-target="login_pw"><i
+                                    class="fa-regular fa-eye"></i></button>
+                        </div>
                     </div>
 
                     <div class="login-form__submit">

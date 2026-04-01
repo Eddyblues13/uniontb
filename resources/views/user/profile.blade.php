@@ -76,7 +76,7 @@
                     <div class="in">
                         <div>Account Number</div>
                         <span class="text-primary">
-                            {{ Auth::user()->account_number ?? '-1' }}
+                            {{ Auth::user()->account_number ?? 'N/A' }}
                         </span>
                     </div>
                 </a>

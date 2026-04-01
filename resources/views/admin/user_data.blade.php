@@ -744,10 +744,12 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header bg-light">
-                    <h4 class="modal-title text-dark">You are about to login as {{$user->first_name}}.</strong></h4>
+                    <h4 class="modal-title text-dark">You are about to login as {{$user->name}}.</h4>
                     <button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body bg-light">
+                    <p class="text-dark mb-3">You will be redirected to this user's dashboard. Use the "Back to Admin"
+                        button to return.</p>
                     <a class="btn btn-success" href="{{ route('users.impersonate', $user->id) }}">Proceed</a>
                 </div>
             </div>

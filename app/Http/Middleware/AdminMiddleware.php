@@ -20,8 +20,14 @@ class AdminMiddleware
         if (!Auth::check()) {
             return redirect()->to('/'); // Redirects to user/home URL
         }
+
+        // Allow access if the user is impersonating (original admin session exists)
+        if (session()->has('impersonate')) {
+            return $next($request);
+        }
+
         // Check if the user is authenticated as an admin
-        if (!Auth::user()->user_type === 'admin') {
+        if (Auth::user()->user_type !== 'admin') {
             return redirect('/')->with('error', 'You do not have admin access.');
         }
         return $next($request);

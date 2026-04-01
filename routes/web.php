@@ -153,6 +153,9 @@ Route::prefix('user')->middleware('user')->group(function () {
 // Admin Routes
 Route::prefix('admin')->group(function () {
 
+    // Leave impersonate route - must be outside admin middleware so impersonating users can access it
+    Route::get('/leave-impersonate', [App\Http\Controllers\Admin\AdminController::class, 'leaveImpersonate'])->name('users.leave-impersonate')->middleware('auth');
+
     // Protecting admin routes using the 'admin' middleware
     Route::middleware(['admin'])->group(function () { // Admin Profile Routes
         Route::get('/profile', [App\Http\Controllers\Admin\AdminController::class, 'editProfile'])->name('admin.profile');
@@ -181,7 +184,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/clear-account/{id}', [App\Http\Controllers\Admin\AdminController::class, 'clearAccount'])->name('clear.account');
 
         Route::get('/{user}/impersonate',  [App\Http\Controllers\Admin\AdminController::class, 'impersonate'])->name('users.impersonate');
-        Route::get('/leave-impersonate',  [App\Http\Controllers\Admin\AdminController::class, 'leaveImpersonate'])->name('users.leave-impersonate');
 
         Route::post('/edit-user/{user}', [App\Http\Controllers\Admin\AdminController::class, 'editUser'])->name('edit.user');
         Route::post('/add-new-user',  [App\Http\Controllers\Admin\AdminController::class, 'newUser'])->name('add.user');

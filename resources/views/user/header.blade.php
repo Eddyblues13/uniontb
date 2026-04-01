@@ -148,6 +148,14 @@
 </head>
 
 <body>
+    @if(session()->has('impersonate'))
+    <div
+        style="background:#c92041;color:#fff;text-align:center;padding:8px 15px;font-size:14px;font-weight:500;position:relative;z-index:9999;">
+        You are viewing this account as <strong>{{ Auth::user()->name }}</strong>.
+        <a href="{{ route('users.leave-impersonate') }}"
+            style="color:#fff;text-decoration:underline;margin-left:10px;font-weight:700;">Back to Admin</a>
+    </div>
+    @endif
     <!-- App Header -->
 
     <div class="appHeader bg-primary text-light">

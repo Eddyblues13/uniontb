@@ -645,7 +645,7 @@ class AdminController extends Controller
 
     public function impersonate(Request $request, User $user)
     {
-        // Store the original user's ID in the session (if not already stored)
+        // Store the original admin's ID in the session (if not already stored)
         if (!session()->has('impersonate')) {
             session()->put('impersonate', Auth::id());
         }
@@ -653,56 +653,8 @@ class AdminController extends Controller
         // Impersonate the specified user
         Auth::loginUsingId($user->id);
 
-        $data['savings_balance'] = SavingsBalance::where('user_id', $user->id)->sum('amount');
-        $data['checking_balance'] = CheckingBalance::where('user_id', $user->id)->sum('amount');
-
-        $data['currentMonth'] = Carbon::now()->format('M Y'); // Example: "Feb 2025"
-
-        $data['totalSavingsCredit'] = SavingsBalance::where('user_id', $user->id)
-            ->whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)
-            ->where('type', 'credit')
-            ->sum('amount');
-
-        $data['totalSavingsDebit'] = SavingsBalance::where('user_id', $user->id)
-            ->whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)
-            ->where('type', 'debit')
-            ->sum('amount');
-
-        $data['totalCheckingCredit'] = CheckingBalance::where('user_id', $user->id)
-            ->whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)
-            ->where('type', 'credit')
-            ->sum('amount');
-
-
-
-        $data['totalCheckingDebit'] = CheckingBalance::where('user_id', $user->id)
-            ->whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)
-            ->where('type', 'debit')
-            ->sum('amount');
-        $data['activity'] = Activity::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->skip(1)->take(1)->first();
-        $data['clientIpAddress'] = $request->getClientIp();
-        $data['userIp'] = $request->ip();
-        $data['location'] = Location::get($data['userIp']);
-
-        // Use the Location facade to get the user's location
-        $location = Location::get($data['userIp']);
-
-        // Determine the flag URL
-        $data['flagUrl'] = '';
-        if ($location && $location->countryCode) {
-            $data['flagUrl'] = "https://flagcdn.com/24x18/" . strtolower($location->countryCode) . ".png";
-        }
-
-
-
-
-
-        // Redirect to the user's home page with the relevant data
-        return view('dashboard.home', $data)->with('success', 'You are logged in as ' . $user->name);
+        // Redirect to the user's home page
+        return redirect()->route('home')->with('success', 'You are now logged in as ' . $user->name);
     }
 
 
@@ -713,17 +665,22 @@ class AdminController extends Controller
             // Retrieve the original user's ID from the session
             $originalUserId = session()->get('impersonate');
 
-            // Log in as the original user
+            // Verify the original user is an admin
+            $originalUser = User::find($originalUserId);
+            if (!$originalUser || $originalUser->user_type !== 'admin') {
+                session()->forget('impersonate');
+                Auth::logout();
+                return redirect('/')->with('error', 'Invalid impersonation session.');
+            }
+
+            // Log in as the original admin
             Auth::loginUsingId($originalUserId);
 
             // Forget the impersonation session data
             session()->forget('impersonate');
 
-            $data['users'] = User::get();
-
-
-            // Redirect to the original user's dashboard or home page
-            return redirect()->route('admin.home', $data)->with('message', 'You have returned to your original account.');
+            // Redirect to the admin dashboard
+            return redirect()->route('admin.home')->with('message', 'You have returned to your admin account.');
         }
 
         // If no impersonation is happening, redirect to home
